@@ -40,6 +40,6 @@ body {
 }
 
 
-p {
- padding: 0 10px 0 10px; 
+div > p{
+  padding: 0 10px 0 10px; 
 }
