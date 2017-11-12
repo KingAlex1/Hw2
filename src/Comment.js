@@ -1,9 +1,26 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 
-class Comment extends Component {
+class Comment extends PureComponent {
+  
+  handleDelete = () => {
+    const {id, onDelete} = this.props;
+    onDelete(id);
+  };
+
   render() {
-    return <div />;
+    const { text } = this.props;
+    return (
+      <div>
+        <p>{text}</p>
+        <span
+          className="delete"
+          onClick={this.handleDelete}
+        >
+          x
+        </span>
+      </div>
+    );
   }
 }
 
-export default Comment;
+export default Comment ; 
