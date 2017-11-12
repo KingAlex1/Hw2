@@ -1,7 +1,6 @@
 import React, {
   PureComponent
 } from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
 
 let id = 0;
@@ -29,7 +28,7 @@ class App extends PureComponent {
         news
       } = this.state;
       const newNews = {
-        inputValue: newsInput,
+        value: newsInput,
         id: getNewsId()
       };
       this.setState({
@@ -58,7 +57,7 @@ class App extends PureComponent {
             <NewsPost
               key={item.id}
               id={item.id}
-              text={item.inputValue}
+              text={item.value}
             />
           ))}
         </div>
@@ -69,28 +68,28 @@ class App extends PureComponent {
 
 class NewsPost extends PureComponent {
   state = {
-    newsInput: "",
+    comInput: "",
     comments: []
   };
   handleChange = event => {
     const value = event.target.value;
     this.setState({
-      newsInput: value
+      comInput: value
     });
   };
 
   handleKeyDown = event => {
     if (event.keyCode === 13) {
       const {
-        newsInput,
+        comInput,
         comments
       } = this.state;
       const newNews = {
-        inputValue: newsInput,
+        inputValue: comInput,
         id: getNewsId()
       };
       this.setState({
-        newsInput: "",
+        comInput: "",
         comments: [...comments, newNews]
       });
     }
@@ -105,25 +104,29 @@ class NewsPost extends PureComponent {
 
   render() {
     const {
-      newsInput,
-      comments
+      comInput,
+      comments      
     } = this.state;
+    const {text} = this.props
     return (
       <div className="news-container">
+        <span>{text}</span>
         <p>
           {comments.map(item => (
             <Comment
               key={item.id}
               id={item.id}
               text={item.inputValue}
+              onDelete={this.handleDelete}
+              onClick={this.handleDelete}
             />
           ))}
         </p>
         <input
-          value={newsInput}
+          value={comInput}
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
-          onClick={this.handleDelete}
+         
           className="input-comment"
           placeholder="прокоментируем ?"
         />
@@ -138,6 +141,11 @@ class Comment extends PureComponent {
   handleChange = () => {
     const { id, onChange } = this.props;
     onChange(id);
+  };
+
+  handleDelete = () => {
+    const {id, onDelete} = this.props;
+    onDelete(id);
   };
 
   render() {
