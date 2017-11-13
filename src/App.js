@@ -13,8 +13,7 @@ function getNewsId() {
 class App extends PureComponent {
   state = {
     newsInput: "",
-    news: [],
-    
+    news: [],    
   };
   handleChange = event => {
     const value = event.target.value;
@@ -56,7 +55,7 @@ class App extends PureComponent {
         {news.map(item => (
           <NewsPost
             key={getNewsId()}
-            text={item.value}
+            text={item.text}
           />
         ))}        
       </div>
